@@ -58,12 +58,16 @@
       #PanelUI-menu-button,
       [id="PanelUI-menu-button"] {
         visibility: hidden !important;
+        width: 0 !important;
+        height: 0 !important;
         pointer-events: none !important;
       }
       /* Show when class is on root */
       :root.${VISIBLE_CLASS} #PanelUI-menu-button,
       :root.${VISIBLE_CLASS} [id="PanelUI-menu-button"] {
         visibility: visible !important;
+        width: auto !important;
+        height: auto !important;
         pointer-events: auto !important;
       }
     `;
