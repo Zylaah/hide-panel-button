@@ -14,7 +14,7 @@
   if (typeof document !== "undefined" && !document.getElementById(STYLE_ID)) {
     const s = document.createElement("style");
     s.id = STYLE_ID;
-    s.textContent = `#PanelUI-menu-button,[id="PanelUI-menu-button"]{visibility:hidden!important;pointer-events:none!important}:root.${VISIBLE_CLASS} #PanelUI-menu-button,:root.${VISIBLE_CLASS} [id="PanelUI-menu-button"]{visibility:visible!important;pointer-events:auto!important}`;
+    s.textContent = `#PanelUI-menu-button,[id="PanelUI-menu-button"]{display:none!important;pointer-events:none!important}:root.${VISIBLE_CLASS} #PanelUI-menu-button,:root.${VISIBLE_CLASS} [id="PanelUI-menu-button"]{display:revert!important;pointer-events:auto!important}`;
     (document.head || document.documentElement).appendChild(s);
   }
   const PANEL_BUTTON_ID = "PanelUI-button";
@@ -54,20 +54,16 @@
     const style = doc.createElement("style");
     style.id = STYLE_ID;
     style.textContent = `
-      /* Hide by default */
+      /* Hide by default - display:none removes the gap */
       #PanelUI-menu-button,
       [id="PanelUI-menu-button"] {
-        visibility: hidden !important;
-        width: 0 !important;
-        height: 0 !important;
+        display: none !important;
         pointer-events: none !important;
       }
       /* Show when class is on root */
       :root.${VISIBLE_CLASS} #PanelUI-menu-button,
       :root.${VISIBLE_CLASS} [id="PanelUI-menu-button"] {
-        visibility: visible !important;
-        width: auto !important;
-        height: auto !important;
+        display: revert !important;
         pointer-events: auto !important;
       }
     `;
