@@ -19,5 +19,6 @@
     "UI",
     "Panel"
   ],
+  "ai": "yes",
   "fork": ["zen"]
 }
