@@ -3,7 +3,7 @@
   "name": "Hide Panel UI Menu Button",
   "description": "Hides the app menu button by default; shows it only when the panel has to display (badge or panel open).",
   "scripts": {
-    "hide_panel_button.uc.js": {
+    "hide-panel-button.uc.js": {
       "include": [
         "chrome://browser/content/browser.xhtml"
       ]

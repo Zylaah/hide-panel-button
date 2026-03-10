@@ -74,7 +74,8 @@
     const style = document.createElement("style");
     style.id = STYLE_ID;
     style.textContent = `
-      #${MENU_BUTTON_ID}[data-panel-button-visible="false"] {
+      #PanelUI-menu-button[data-panel-button-visible="false"],
+      [id="PanelUI-menu-button"][data-panel-button-visible="false"] {
         visibility: hidden !important;
         pointer-events: none !important;
       }
@@ -83,9 +84,15 @@
   }
 
   function setupObservers() {
-    menuButton = document.getElementById(MENU_BUTTON_ID);
-    panelButton = document.getElementById(PANEL_BUTTON_ID);
-    appMenuPopup = document.getElementById(APP_MENU_POPUP_ID);
+    menuButton =
+      document.getElementById(MENU_BUTTON_ID) ||
+      document.querySelector(`[id="${MENU_BUTTON_ID}"]`);
+    panelButton =
+      document.getElementById(PANEL_BUTTON_ID) ||
+      document.querySelector(`[id="${PANEL_BUTTON_ID}"]`);
+    appMenuPopup =
+      document.getElementById(APP_MENU_POPUP_ID) ||
+      document.querySelector(`[id="${APP_MENU_POPUP_ID}"]`);
 
     if (!menuButton) return;
 
@@ -94,14 +101,17 @@
     lastVisibleState = false;
     updateVisibility();
 
-    if (panelButton) {
-      const panelButtonObserver = new MutationObserver(scheduleVisibilityUpdate);
-      panelButtonObserver.observe(panelButton, {
+    const observeOpenState = (element) => {
+      if (!element) return;
+      const mo = new MutationObserver(scheduleVisibilityUpdate);
+      mo.observe(element, {
         attributes: true,
         attributeFilter: ["open", "panelopen"],
         subtree: false,
       });
-    }
+    };
+    observeOpenState(panelButton);
+    observeOpenState(menuButton);
 
     const menuButtonObserver = new MutationObserver(scheduleVisibilityUpdate);
     menuButtonObserver.observe(menuButton, {
